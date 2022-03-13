@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class RotationStartSwitch : RotationStart
 {
-    [SerializeField] private float _switchInterval = 1.0f;
     [SerializeField] private int _countStop = 2;
     [SerializeField] private float _delayStop = 0.4f;
     private float _intervalStop;

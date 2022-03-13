@@ -15,6 +15,9 @@ public class DiskProperties : MonoBehaviour
     [SerializeField] private float _durationStart = 3.0f;
     [SerializeField] private float _durationStop = 3.0f;
 
+    [SerializeField] private int _maxCountGenerateKnife = 1;
+    [SerializeField] private int _maxStuckKnife = 6;
+
     public GameObject GetModel()
     {
         return _model;
@@ -53,5 +56,15 @@ public class DiskProperties : MonoBehaviour
     public float GetDurationStop()
     {
         return _durationStop;
+    }
+
+    public int GetMaxCountGenerateKnife()
+    {
+        return _maxCountGenerateKnife;
+    }
+
+    public int GetMaxStuckKnife()
+    {
+        return _maxStuckKnife;
     }
 }
