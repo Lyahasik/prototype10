@@ -1,7 +1,6 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SessionManager : MonoBehaviour
 {
@@ -97,5 +96,12 @@ public class SessionManager : MonoBehaviour
         {
             knife.GetComponent<MeshRenderer>().material.mainTexture = _textureKnife;
         }
+    }
+
+    public IEnumerator GameOver()
+    {
+        yield return new WaitForSeconds(2.0f);
+        
+        SceneManager.LoadScene("Level");
     }
 }

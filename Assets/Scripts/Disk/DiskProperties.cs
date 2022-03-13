@@ -7,7 +7,6 @@ public class DiskProperties : MonoBehaviour
     [SerializeField] private GameObject _model;
     [SerializeField] private GameObject _modelDestruct;
     [SerializeField] private GameObject _hitEffect;
-    [SerializeField] private AudioSource _hitSound;
 
     [Space]
     [SerializeField] private float _speedRotation = 70.0f;
@@ -15,6 +14,7 @@ public class DiskProperties : MonoBehaviour
     [SerializeField] private float _durationStart = 3.0f;
     [SerializeField] private float _durationStop = 3.0f;
 
+    [SerializeField] private int _minCountGenerateKnife = 0;
     [SerializeField] private int _maxCountGenerateKnife = 1;
     [SerializeField] private int _maxStuckKnife = 6;
 
@@ -31,11 +31,6 @@ public class DiskProperties : MonoBehaviour
     public GameObject GetHitEffect()
     {
         return _hitEffect;
-    }
-
-    public AudioSource GetHitSound()
-    {
-        return _hitSound;
     }
 
     public float GetSpeedRotation()
@@ -56,6 +51,11 @@ public class DiskProperties : MonoBehaviour
     public float GetDurationStop()
     {
         return _durationStop;
+    }
+
+    public int GetMinCountGenerateKnife()
+    {
+        return _minCountGenerateKnife;
     }
 
     public int GetMaxCountGenerateKnife()
