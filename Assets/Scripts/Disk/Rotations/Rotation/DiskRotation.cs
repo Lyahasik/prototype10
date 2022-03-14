@@ -19,7 +19,7 @@ public abstract class DiskRotation : MonoBehaviour, IDiskRotation
 
     private void Start()
     {
-        _iRotationStop = (IRotationStop) GetComponent(typeof(IRotationStop));
+        _iRotationStop = GetComponent<IRotationStop>();
             
         _duration = GetComponent<DiskProperties>().GetDurationRotation();
         _speed = GetComponent<DiskProperties>().GetSpeedRotation();
@@ -30,11 +30,16 @@ public abstract class DiskRotation : MonoBehaviour, IDiskRotation
         Rotation();
     }
 
-    public void Switch()
+    public void StartRotation()
     {
-        _isActive = !_isActive;
+        _isActive = true;
         
         _timeNext = Time.time + _duration;
+    }
+
+    public void StopRotation()
+    {
+        _isActive = false;
     }
     
     protected virtual void Rotation()
@@ -46,7 +51,7 @@ public abstract class DiskRotation : MonoBehaviour, IDiskRotation
             if (_timeNext < Time.time)
             {
                 _isActive = false;
-                _iRotationStop.Switch();
+                _iRotationStop.StartRotation();
             }
         }
     }

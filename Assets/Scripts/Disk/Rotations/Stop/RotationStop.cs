@@ -23,7 +23,7 @@ public class RotationStop : MonoBehaviour
 
     private void Start()
     {
-        _iRotationStart = (IRotationStart) GetComponent(typeof(IRotationStart));
+        _iRotationStart = GetComponent<IRotationStart>();
         
         _duration = GetComponent<DiskProperties>().GetDurationStop();
         _diskProperties = GetComponent<DiskProperties>();
@@ -45,7 +45,7 @@ public class RotationStop : MonoBehaviour
             if (_currentSpeed <= 0.0f)
             {
                 _isActive = false;
-                StartCoroutine(StartRotation());
+                StartCoroutine(StartRotationStart());
                 
                 return;
             }
@@ -54,10 +54,10 @@ public class RotationStop : MonoBehaviour
         }
     }
     
-    protected IEnumerator StartRotation()
+    protected IEnumerator StartRotationStart()
     {
         yield return new WaitForSeconds(0.5f);
         
-        _iRotationStart.Switch();
+        _iRotationStart.StartRotation();
     }
 }

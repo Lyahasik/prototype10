@@ -4,8 +4,20 @@ using UnityEngine.SceneManagement;
 
 public class SessionManager : MonoBehaviour
 {
+    [SerializeField] private float _delayNext = 1.0f;
+
+    [SerializeField] private GameObject _objectStorage;
+    [SerializeField] private GameObject[] _disks;
+    
+    private GameObject _currentDisk;
+    private int _currentIdDisk = 0;
+    private IDiskRotation _iDiskRotation;
+    private IRotationStart _iRotationStart;
+    private IRotationStop _iRotationStop;
+    
     [SerializeField] private GameObject _mainKnife;
     [SerializeField] private Texture _textureKnife;
+    private KnifeThrowing _knifeThrowing;
     
     [Space]
     [SerializeField] private GameObject _objectPullBaseKnifes;
@@ -24,8 +36,37 @@ public class SessionManager : MonoBehaviour
 
     private void Start()
     {
+        _knifeThrowing = _mainKnife.GetComponent<KnifeThrowing>();
+        
+        InitDisk();
         ApplyMaterialKnifes();
         ResetIssued();
+    }
+
+    void InitDisk()
+    {
+        if (_currentIdDisk == _disks.Length)
+        {
+            SceneManager.LoadScene("Level1");
+            return;
+        }
+        
+        _currentDisk = _disks[_currentIdDisk];
+        
+        _iDiskRotation = _currentDisk.GetComponent<IDiskRotation>();
+        _iRotationStart = _currentDisk.GetComponent<IRotationStart>();
+        _iRotationStop = _currentDisk.GetComponent<IRotationStop>();
+        
+        _currentDisk.transform.SetParent(_objectStorage.transform, true);
+        _currentDisk.transform.position = new Vector3(0.0f, 1.9f, 0.0f);
+        _currentDisk.GetComponent<DiskLife>().SettingDisk();
+
+        _currentIdDisk++;
+    }
+
+    public GameObject GetObjectPullBaseKnifes()
+    {
+        return _objectPullBaseKnifes;
     }
 
     public GameObject GetBaseKnife()
@@ -39,6 +80,11 @@ public class SessionManager : MonoBehaviour
         return null;
     }
 
+    public GameObject GetObjectPullKnifes()
+    {
+        return _objectPullKnifes;
+    }
+
     public GameObject GetKnife()
     {
         if (_issuedKnifes < _pullKnifes.Length)
@@ -48,6 +94,11 @@ public class SessionManager : MonoBehaviour
         
         Debug.Log("Error: not knifes in pull.");
         return null;
+    }
+
+    public GameObject GetObjectPullApples()
+    {
+        return _objectPullApples;
     }
 
     public GameObject GetApple()
@@ -66,6 +117,11 @@ public class SessionManager : MonoBehaviour
         foreach (GameObject knife in _pullBaseKnifes)
         {
             knife.transform.SetParent(_objectPullBaseKnifes.transform, true);
+
+            Rigidbody rigidbody = knife.GetComponent<Rigidbody>();
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
+            
             knife.transform.localPosition = Vector3.zero;
             knife.transform.rotation = Quaternion.identity;
         }
@@ -73,14 +129,29 @@ public class SessionManager : MonoBehaviour
         foreach (GameObject knife in _pullKnifes)
         {
             knife.transform.SetParent(_objectPullKnifes.transform, true);
+
+            Rigidbody rigidbody = knife.GetComponent<Rigidbody>();
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
+            
             knife.transform.localPosition = Vector3.zero;
             knife.transform.rotation = Quaternion.identity;
         }
-        
+
+        int i = 1;
         foreach (GameObject apple in _pullApples)
         {
+            AppleLife appleLife = apple.GetComponent<AppleLife>();
+            
+            appleLife.SetObjectPullApples(_objectPullApples);
+            appleLife.SetInteract(true);
+            
+            Rigidbody rigidbody = apple.GetComponent<Rigidbody>();
+            rigidbody.velocity = Vector3.zero;
+            rigidbody.angularVelocity = Vector3.zero;
+
             apple.transform.SetParent(_objectPullApples.transform, true);
-            apple.transform.localPosition = Vector3.zero;
+            apple.transform.localPosition = new Vector3(0.0f, i++, 0.0f);
             apple.transform.rotation = Quaternion.identity;
         }
         
@@ -100,8 +171,33 @@ public class SessionManager : MonoBehaviour
 
     public IEnumerator GameOver()
     {
+        StopRotate();
+
         yield return new WaitForSeconds(2.0f);
         
-        SceneManager.LoadScene("Level");
+        SceneManager.LoadScene("Level1");
+    }
+
+    public IEnumerator NextDisk()
+    {
+        StartCoroutine(_knifeThrowing.SplitDisk(_delayNext));
+        
+        StopRotate();
+
+        yield return new WaitForSeconds(_delayNext);
+
+        ResetIssued();
+        
+        yield return new WaitForSeconds(0.05f);
+        
+        Destroy(_currentDisk);
+        InitDisk();
+    }
+
+    private void StopRotate()
+    {
+        _iDiskRotation.StopRotation();
+        _iRotationStart.StopRotation();
+        _iRotationStop.StopRotation();
     }
 }

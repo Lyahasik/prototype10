@@ -5,15 +5,20 @@ public class RotationStopRandom : RotationStop, IRotationStop
     [SerializeField] private float _minDuration = 0.1f;
     [SerializeField] private float _maxDuration = 1.0f;
     
-    public void Switch()
+    public void StartRotation()
     {
-        _isActive = !_isActive;
+        _isActive = true;
         
         _maxSpeed = _diskProperties.GetSpeedRotation();
         _currentSpeed = _maxSpeed;
 
         _duration = Random.Range(_minDuration, _maxDuration);
         _timeNext = Time.time + _duration;
+    }
+    
+    public void StopRotation()
+    {
+        _isActive = false;
     }
 
     protected override void Rotation()
@@ -27,7 +32,7 @@ public class RotationStopRandom : RotationStop, IRotationStop
             if (_currentSpeed <= 0.0f)
             {
                 _isActive = false;
-                StartCoroutine(StartRotation());
+                StartCoroutine(StartRotationStart());
                 
                 return;
             }

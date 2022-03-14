@@ -1,25 +1,33 @@
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(KnifeProperties))]
+[RequireComponent(typeof(ObjectImpulse))]
 [RequireComponent(typeof(AudioSource))]
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Collider))]
 public class KnifeThrowing : MonoBehaviour
 {
     [SerializeField] private SessionManager _sessionManager;
-    [SerializeField] private float _powerRotationDrop = 0.5f;
+    [SerializeField] private float _powerRotationDrop = 800f;
     
     private float _speed;
+    private float _speedDrop;
     
+    private ObjectImpulse _objectImpulse;
     private AudioSource _hitKnifeAudio;
     private Rigidbody _rigidbody;
     private Collider _collider;
 
     private Vector3 _startPosition;
     private bool _isThrow;
+    
     void Start()
     {
         _speed = GetComponent<KnifeProperties>().GetSpeedThrow();
+        _speedDrop = GetComponent<KnifeProperties>().GetSpeedDrop();
+
+        _objectImpulse = GetComponent<ObjectImpulse>();
         _hitKnifeAudio = GetComponent<AudioSource>();
         _rigidbody = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
@@ -61,15 +69,16 @@ public class KnifeThrowing : MonoBehaviour
 
     private void HitDisk(DiskLife diskLife)
     {
-        diskLife.HitKnife(transform.position);
-
-        transform.position = _startPosition;
-        transform.rotation = Quaternion.identity;
+        if (diskLife.HitKnife(transform.position))
+        {
+            transform.position = _startPosition;
+            transform.rotation = Quaternion.identity;
         
-        _rigidbody.velocity = Vector3.zero;
-        _rigidbody.angularVelocity = Vector3.zero;
+            _rigidbody.velocity = Vector3.zero;
+            _rigidbody.angularVelocity = Vector3.zero;
 
-        _isThrow = false;
+            _isThrow = false;
+        }
     }
 
     private void HitKnife()
@@ -81,7 +90,26 @@ public class KnifeThrowing : MonoBehaviour
         _rigidbody.velocity = Vector3.zero;
         _rigidbody.angularVelocity = Vector3.zero;
 
-        _rigidbody.useGravity = true;
+        _rigidbody.AddForce(-Vector3.up * _speedDrop);
         _rigidbody.AddTorque(transform.forward * _powerRotationDrop, ForceMode.Impulse);
+    }
+
+    public IEnumerator SplitDisk(float delayNext)
+    {
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.angularVelocity = Vector3.zero;
+        
+        _objectImpulse.Impulse();
+        
+        yield return new WaitForSeconds(delayNext);
+        
+        _collider.isTrigger = false;
+        _rigidbody.velocity = Vector3.zero;
+        _rigidbody.angularVelocity = Vector3.zero;
+        
+        transform.position = _startPosition;
+        transform.rotation = Quaternion.identity;
+
+        _isThrow = false;
     }
 }

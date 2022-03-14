@@ -1,4 +1,5 @@
 public interface IDiskRotation
 {
-    void Switch();
+    void StartRotation();
+    void StopRotation();
 }

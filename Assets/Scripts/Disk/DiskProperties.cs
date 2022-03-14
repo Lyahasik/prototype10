@@ -15,8 +15,11 @@ public class DiskProperties : MonoBehaviour
     [SerializeField] private float _durationStop = 3.0f;
 
     [SerializeField] private int _minCountGenerateKnife = 0;
-    [SerializeField] private int _maxCountGenerateKnife = 1;
+    [SerializeField] [Range(1, 6)] private int _maxCountGenerateKnife = 1;
     [SerializeField] private int _maxStuckKnife = 6;
+    
+    [SerializeField] [Range(1, 6)] private int _maxCountGenerateApple = 1;
+    [SerializeField] [Range(0.0f, 1.0f)] private float _randomGenerateApples = 0.25f;
 
     public GameObject GetModel()
     {
@@ -66,5 +69,15 @@ public class DiskProperties : MonoBehaviour
     public int GetMaxStuckKnife()
     {
         return _maxStuckKnife;
+    }
+
+    public int GetMaxCountGenerateApple()
+    {
+        return _maxCountGenerateApple;
+    }
+
+    public float GetRandomGenerateApples()
+    {
+        return _randomGenerateApples;
     }
 }

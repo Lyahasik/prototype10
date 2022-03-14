@@ -27,7 +27,7 @@ public class RotationStartSwitch : RotationStart
                 _delay = 0.0f;
                 _checkPoint = 0.0f;
                 
-                _iDiskRotation.Switch();
+                _iDiskRotation.StartRotation();
                 
                 return;
             }

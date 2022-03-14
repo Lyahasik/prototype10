@@ -1,4 +1,5 @@
 public interface IRotationStop
 {
-    void Switch();
+    void StartRotation();
+    void StopRotation();
 }
