@@ -111,8 +111,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0bc928eb94ec8d40bbbad31942195ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _powerImpulse: 300
+  _powerTorque: 1000
+  _powerForce: 300
   _isStart: 1
+  _axisZ: 0
 --- !u!1 &1691198583234563283
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,8 +226,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0bc928eb94ec8d40bbbad31942195ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _powerImpulse: 300
+  _powerTorque: 1000
+  _powerForce: 300
   _isStart: 1
+  _axisZ: 0
 --- !u!1 &2851904009953155525
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,7 +372,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: 5e3334cb5678ffd46a0193ee8126bcc2, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 2
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -784,5 +788,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0bc928eb94ec8d40bbbad31942195ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _powerImpulse: 300
+  _powerTorque: 1000
+  _powerForce: 300
   _isStart: 1
+  _axisZ: 0

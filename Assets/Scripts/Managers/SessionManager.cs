@@ -154,7 +154,8 @@ public class SessionManager : MonoBehaviour
             apple.transform.localPosition = new Vector3(0.0f, i++, 0.0f);
             apple.transform.rotation = Quaternion.identity;
         }
-        
+
+        _issuedBaseKnifes = 0;
         _issuedKnifes = 0;
         _issuedApples = 0;
     }
@@ -173,7 +174,7 @@ public class SessionManager : MonoBehaviour
     {
         StopRotate();
 
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(_delayNext);
         
         SceneManager.LoadScene("Level1");
     }

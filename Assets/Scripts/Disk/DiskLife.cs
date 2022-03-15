@@ -61,9 +61,8 @@ public class DiskLife : MonoBehaviour
         GameObject knife = _sessionManager.GetKnife();
         
         _listKnifesImpulse.Add(knife.GetComponent<ObjectImpulse>());
-        
-        _audioHit.Play();
-        Instantiate(_hitEffect, position, _hitEffect.transform.rotation);
+
+        StartCoroutine(HitEffect(position));
         
         knife.transform.position = position;
         knife.transform.SetParent(transform, true);
@@ -76,6 +75,18 @@ public class DiskLife : MonoBehaviour
         }
 
         return true;
+    }
+
+    private IEnumerator HitEffect(Vector3 position)
+    {
+        _audioHit.Play();
+        Instantiate(_hitEffect, position, _hitEffect.transform.rotation);
+        
+        transform.position += new Vector3(0, 0.05f, 0);
+
+        yield return new WaitForSeconds(0.1f);
+        
+        transform.position += new Vector3(0, -0.05f, 0);
     }
 
     private void DiskDestruct()
