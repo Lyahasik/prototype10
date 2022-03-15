@@ -121,9 +121,12 @@ public class SessionManager : MonoBehaviour
             Rigidbody rigidbody = knife.GetComponent<Rigidbody>();
             rigidbody.velocity = Vector3.zero;
             rigidbody.angularVelocity = Vector3.zero;
-            
+            rigidbody.isKinematic = true;
+
             knife.transform.localPosition = Vector3.zero;
             knife.transform.rotation = Quaternion.identity;
+            
+            knife.GetComponent<Collider>().isTrigger = false;
         }
         
         foreach (GameObject knife in _pullKnifes)
@@ -133,9 +136,12 @@ public class SessionManager : MonoBehaviour
             Rigidbody rigidbody = knife.GetComponent<Rigidbody>();
             rigidbody.velocity = Vector3.zero;
             rigidbody.angularVelocity = Vector3.zero;
+            rigidbody.isKinematic = true;
             
             knife.transform.localPosition = Vector3.zero;
             knife.transform.rotation = Quaternion.identity;
+            
+            knife.GetComponent<Collider>().isTrigger = false;
         }
 
         int i = 1;

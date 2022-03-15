@@ -53,20 +53,6 @@ public class KnifeThrowing : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision other)
-    {
-        DiskLife diskLife = other.gameObject.GetComponent<DiskLife>();
-
-        if (diskLife)
-        {
-            HitDisk(diskLife);
-        }
-        else
-        {
-            HitKnife();
-        }
-    }
-
     private void HitDisk(DiskLife diskLife)
     {
         if (diskLife.HitKnife(transform.position))
@@ -111,5 +97,19 @@ public class KnifeThrowing : MonoBehaviour
         transform.rotation = Quaternion.identity;
 
         _isThrow = false;
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        DiskLife diskLife = other.gameObject.GetComponent<DiskLife>();
+
+        if (diskLife)
+        {
+            HitDisk(diskLife);
+        }
+        else
+        {
+            HitKnife();
+        }
     }
 }

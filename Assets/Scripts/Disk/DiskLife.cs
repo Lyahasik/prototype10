@@ -64,7 +64,7 @@ public class DiskLife : MonoBehaviour
 
         StartCoroutine(HitEffect(position));
         
-        knife.transform.position = position;
+        knife.transform.position = transform.position + new Vector3(0, -1.5f, 0);
         knife.transform.SetParent(transform, true);
 
         _maxStuckKnife--;
