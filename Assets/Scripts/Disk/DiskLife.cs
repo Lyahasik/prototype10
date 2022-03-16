@@ -37,6 +37,7 @@ public class DiskLife : MonoBehaviour
         
         _hitEffect = _diskProperties.GetHitEffect();
         _maxStuckKnife = _diskProperties.GetMaxStuckKnife();
+        _sessionManager.GetUIManager().GetSessionWindow().SetCountStuckKnife(_maxStuckKnife);
         
         _maxCountGenerateApple = _diskProperties.GetMaxCountGenerateApple();
 
@@ -58,6 +59,8 @@ public class DiskLife : MonoBehaviour
 
     public bool HitKnife(Vector3 position)
     {
+        _sessionManager.GetUIManager().GetSessionWindow().AddScore(1);
+        
         GameObject knife = _sessionManager.GetKnife();
         
         _listKnifesImpulse.Add(knife.GetComponent<ObjectImpulse>());
@@ -66,6 +69,8 @@ public class DiskLife : MonoBehaviour
         
         knife.transform.position = transform.position + new Vector3(0, -1.5f, 0);
         knife.transform.SetParent(transform, true);
+        
+        _sessionManager.GetUIManager().GetSessionWindow().Hit();
 
         _maxStuckKnife--;
         if (_maxStuckKnife <= 0)

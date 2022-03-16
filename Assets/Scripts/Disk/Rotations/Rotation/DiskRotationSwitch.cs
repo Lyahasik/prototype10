@@ -12,13 +12,19 @@ public class DiskRotationSwitch : DiskRotation
     {
         if (_isActive)
         {
+            if (_timeNext < Time.time)
+            {
+                _isActive = false;
+                _iRotationStop.StartRotation();
+            }
+            
             transform.Rotate(Vector3.forward * _rezus * _speed * Time.deltaTime);
-        }
         
-        if (_delay < Time.time)
-        {
-            _delay = Time.time + _switchInterval;
-            _rezus = -_rezus;
+            if (_delay < Time.time)
+            {
+                _delay = Time.time + _switchInterval;
+                _rezus = -_rezus;
+            }
         }
     }
 }
