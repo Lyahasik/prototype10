@@ -38,10 +38,10 @@ public class KnifeThrowing : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown("space"))
-        {
-            Throw();
-        }
+        // if (Input.GetKeyDown("space"))
+        // {
+        //     Throw();
+        // }
     }
 
     public void Throw()

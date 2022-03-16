@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class SessionManager : MonoBehaviour
 {
+    private UIManager _uiManager;
+
+    [Space]
     [SerializeField] private float _delayNext = 1.0f;
 
     [SerializeField] private GameObject _objectStorage;
@@ -16,7 +19,6 @@ public class SessionManager : MonoBehaviour
     private IRotationStop _iRotationStop;
     
     [SerializeField] private GameObject _mainKnife;
-    [SerializeField] private Texture _textureKnife;
     private KnifeThrowing _knifeThrowing;
     
     [Space]
@@ -36,6 +38,8 @@ public class SessionManager : MonoBehaviour
 
     private void Start()
     {
+        _uiManager = GetComponent<UIManager>();
+            
         _knifeThrowing = _mainKnife.GetComponent<KnifeThrowing>();
         
         InitDisk();
@@ -43,11 +47,23 @@ public class SessionManager : MonoBehaviour
         ResetIssued();
     }
 
+    public UIManager GetUIManager()
+    {
+        return _uiManager;
+    }
+
+    public GameObject GetMainKnife()
+    {
+        return _mainKnife;
+    }
+
     void InitDisk()
     {
         if (_currentIdDisk == _disks.Length)
         {
-            SceneManager.LoadScene("Level1");
+            PlayerPrefs.SetInt("countApples", DataGame.GetCountApples());
+
+            SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % SceneManager.sceneCountInBuildSettings);
             return;
         }
         
@@ -58,7 +74,7 @@ public class SessionManager : MonoBehaviour
         _iRotationStop = _currentDisk.GetComponent<IRotationStop>();
         
         _currentDisk.transform.SetParent(_objectStorage.transform, true);
-        _currentDisk.transform.position = new Vector3(0.0f, 1.9f, 0.0f);
+        _currentDisk.transform.position = new Vector3(0.0f, 0.9f, 0.0f);
         _currentDisk.GetComponent<DiskLife>().SettingDisk();
 
         _currentIdDisk++;
@@ -168,11 +184,11 @@ public class SessionManager : MonoBehaviour
 
     private void ApplyMaterialKnifes()
     {
-        _mainKnife.GetComponent<MeshRenderer>().material.mainTexture = _textureKnife;
+        _mainKnife.GetComponent<MeshRenderer>().material.mainTexture = DataGame.GetCurrentTextureKnife();
         
         foreach (GameObject knife in _pullKnifes)
         {
-            knife.GetComponent<MeshRenderer>().material.mainTexture = _textureKnife;
+            knife.GetComponent<MeshRenderer>().material.mainTexture = DataGame.GetCurrentTextureKnife();
         }
     }
 
@@ -181,12 +197,17 @@ public class SessionManager : MonoBehaviour
         StopRotate();
 
         yield return new WaitForSeconds(_delayNext);
+
+        PlayerPrefs.SetInt("countApples", DataGame.GetCountApples());
         
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public IEnumerator NextDisk()
     {
+        _uiManager.GetSessionWindow().AddScore(2);
+        _uiManager.GetSessionWindow().NextDisk();
+        
         StartCoroutine(_knifeThrowing.SplitDisk(_delayNext));
         
         StopRotate();

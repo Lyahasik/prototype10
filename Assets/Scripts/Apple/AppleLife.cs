@@ -2,9 +2,11 @@ using UnityEngine;
 
 public class AppleLife : MonoBehaviour
 {
+    [SerializeField] private SessionManager _sessionManager;
+    
+    [Space]
     [SerializeField] private GameObject _prefabDestroy;
 
-    private SessionManager _sessionManager;
     private GameObject _objectPullApples;
         
     private AudioSource _audioSource;
@@ -30,6 +32,9 @@ public class AppleLife : MonoBehaviour
     {
         if (_isInteract)
         {
+            DataGame.AddApple();
+            _sessionManager.GetUIManager().GetSessionWindow().UpdateApple();
+            
             Instantiate(_prefabDestroy, transform.position, transform.rotation);
         
             transform.SetParent(_objectPullApples.transform, true);
