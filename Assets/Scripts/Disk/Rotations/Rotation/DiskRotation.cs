@@ -4,7 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(IRotationStop))]
 public abstract class DiskRotation : MonoBehaviour, IDiskRotation
 {
-    private IRotationStop _iRotationStop;
+    protected IRotationStop _iRotationStop;
     
     protected float _duration;
     protected float _speed;
