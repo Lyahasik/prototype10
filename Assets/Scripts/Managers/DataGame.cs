@@ -9,6 +9,7 @@ public static class DataGame
     static private int _countApples;
     
     static private int _countScore;
+    static private int _countDisks;
 
     static public void SetCurrentTextureKnife(Texture currentTexture)
     {
@@ -20,16 +21,20 @@ public static class DataGame
         return _currentTexturesKnife;
     }
 
-    static public void Scoring(int level, int number)
+    static public void Scoring()
     {
-        if (_recordNumber < number)
+        if (_recordNumber < _countScore)
         {
-            PlayerPrefs.SetInt("recordNumber", number);
+            _recordNumber = _countScore;
+            
+            PlayerPrefs.SetInt("recordNumber", _recordNumber);
         }
         
-        if (_recordLevel < level)
+        if (_recordLevel < _countDisks)
         {
-            PlayerPrefs.SetInt("recordLevel", level);
+            _recordLevel = _countDisks;
+            
+            PlayerPrefs.SetInt("recordLevel", _recordLevel);
         }
         
         PlayerPrefs.SetInt("countApples", _countApples);
@@ -83,5 +88,20 @@ public static class DataGame
     static public int GetScore()
     {
         return _countScore;
+    }
+    
+    static public void ResetDisk()
+    {
+        _countDisks = 0;
+    }
+    
+    static public void AddDisk()
+    {
+        _countDisks++;
+    }
+    
+    static public int GetDisk()
+    {
+        return _countDisks;
     }
 }

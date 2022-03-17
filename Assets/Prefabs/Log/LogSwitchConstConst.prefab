@@ -587,7 +587,7 @@ GameObject:
   - component: {fileID: 8376964901419837085}
   - component: {fileID: 8376964901419837080}
   m_Layer: 0
-  m_Name: LogSwiftConstConst
+  m_Name: LogSwitchConstConst
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

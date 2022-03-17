@@ -36,7 +36,7 @@ public class SessionManager : MonoBehaviour
     [SerializeField] private GameObject[] _pullApples;
     private int _issuedApples;
 
-    private void Start()
+    public void StartSession()
     {
         _uiManager = GetComponent<UIManager>();
             
@@ -67,6 +67,8 @@ public class SessionManager : MonoBehaviour
             return;
         }
         
+        DataGame.AddDisk();
+        
         _currentDisk = _disks[_currentIdDisk];
         
         _iDiskRotation = _currentDisk.GetComponent<IDiskRotation>();
@@ -80,11 +82,6 @@ public class SessionManager : MonoBehaviour
         _currentIdDisk++;
     }
 
-    public GameObject GetObjectPullBaseKnifes()
-    {
-        return _objectPullBaseKnifes;
-    }
-
     public GameObject GetBaseKnife()
     {
         if (_issuedBaseKnifes < _pullBaseKnifes.Length)
@@ -96,11 +93,6 @@ public class SessionManager : MonoBehaviour
         return null;
     }
 
-    public GameObject GetObjectPullKnifes()
-    {
-        return _objectPullKnifes;
-    }
-
     public GameObject GetKnife()
     {
         if (_issuedKnifes < _pullKnifes.Length)
@@ -110,11 +102,6 @@ public class SessionManager : MonoBehaviour
         
         Debug.Log("Error: not knifes in pull.");
         return null;
-    }
-
-    public GameObject GetObjectPullApples()
-    {
-        return _objectPullApples;
     }
 
     public GameObject GetApple()
@@ -198,14 +185,27 @@ public class SessionManager : MonoBehaviour
 
         yield return new WaitForSeconds(_delayNext);
 
-        PlayerPrefs.SetInt("countApples", DataGame.GetCountApples());
+        _uiManager.GameOver();
+    }
+
+    public void RePlay()
+    {
+        Time.timeScale = 1.0f;
+
+        DataGame.ResetDisk();
+        SceneManager.LoadScene("Level1");
+    }
+
+    public void MainScene()
+    {
+        Time.timeScale = 1.0f;
         
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("MainScene");
     }
 
     public IEnumerator NextDisk()
     {
-        _uiManager.GetSessionWindow().AddScore(2);
+        _uiManager.GetSessionWindow().AddScore(1);
         _uiManager.GetSessionWindow().NextDisk();
         
         StartCoroutine(_knifeThrowing.SplitDisk(_delayNext));

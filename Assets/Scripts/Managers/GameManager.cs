@@ -1,11 +1,13 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private UIManager _uiManager;
+    private SessionManager _sessionManager;
     
-    [SerializeField] private Texture[] _texturesKnife;
+    [SerializeField] private List<Texture> _texturesKnife;
 
     private int _idCurrentTexture;
 
@@ -15,11 +17,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        _uiManager = GetComponent<UIManager>();
-        
-        //TODO убрать в главную сцену
-        _uiManager.GetSessionWindow().ResetScore(); 
-        
+        _sessionManager = GetComponent<SessionManager>();
+            
         _idCurrentTexture = PlayerPrefs.GetInt("idCurrentTexture");
         _recordNumber = PlayerPrefs.GetInt("recordNumber");
         _recordLevel = PlayerPrefs.GetInt("recordLevel");
@@ -29,14 +28,23 @@ public class GameManager : MonoBehaviour
         DataGame.SetRecordNumber(_recordNumber);
         DataGame.SetRecordLevel(_recordLevel);
         DataGame.SetCountApples(_countApples);
-        
-        _uiManager.GetSessionWindow().UpdateApple();
+
+        if (SceneManager.GetActiveScene().name != "MainScene")
+        {
+            _sessionManager.StartSession();
+            GetComponent<UIManager>().GetSessionWindow().UpdateApple();
+        }
+        else
+        {
+            GetComponent<HomeManager>().SetDataAcc();
+        }
     }
 
-    public void SetIdCurrentTexture(int id)
+    public void SetIdCurrentTexture(Texture texture)
     {
-        _idCurrentTexture = id;
+        _idCurrentTexture = _texturesKnife.IndexOf(texture);
         
+        PlayerPrefs.SetInt("idCurrentTexture", _idCurrentTexture);
         DataGame.SetCurrentTextureKnife(_texturesKnife[_idCurrentTexture]);
     }
 }

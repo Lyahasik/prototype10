@@ -36,14 +36,6 @@ public class KnifeThrowing : MonoBehaviour
         _isThrow = false;
     }
 
-    void Update()
-    {
-        // if (Input.GetKeyDown("space"))
-        // {
-        //     Throw();
-        // }
-    }
-
     public void Throw()
     {
         if (!_isThrow)

@@ -758,7 +758,7 @@ GameObject:
   - component: {fileID: 105864650}
   - component: {fileID: 105864649}
   m_Layer: 5
-  m_Name: Level
+  m_Name: Disks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1085,7 +1085,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -1109,7 +1109,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 313647664}
+        m_TargetAssemblyTypeName: SessionManager, Assembly-CSharp
+        m_MethodName: MainScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &139374311
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1686,6 +1698,7 @@ MonoBehaviour:
   _texturesKnife:
   - {fileID: 2800000, guid: 6c052bb86f4c2e9448c6ecdfaeff7e5c, type: 3}
   - {fileID: 2800000, guid: bb4c1234b47e629489980cca393556b8, type: 3}
+  - {fileID: 2800000, guid: 5fce16dd7437f4f458eda474d82c7944, type: 3}
 --- !u!4 &313647662
 Transform:
   m_ObjectHideFlags: 0
@@ -1712,7 +1725,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a65a013b7d91ee4082b912590755a20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sessionWindow: {fileID: 1981548926}
+  _sessionMenu: {fileID: 1981548924}
+  _gameOverMenu: {fileID: 2143722771}
 --- !u!114 &313647664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6766,11 +6780,11 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 1, g: 0, b: 0, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -6790,7 +6804,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 313647664}
+        m_TargetAssemblyTypeName: SessionManager, Assembly-CSharp
+        m_MethodName: RePlay
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1911286367
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7058,7 +7084,7 @@ GameObject:
   - component: {fileID: 1981548925}
   - component: {fileID: 1981548926}
   m_Layer: 5
-  m_Name: SessionWindow
+  m_Name: SessionMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7295,7 +7321,7 @@ GameObject:
   - component: {fileID: 2143722772}
   - component: {fileID: 2143722773}
   m_Layer: 5
-  m_Name: GameOverWindow
+  m_Name: GameOverMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7334,6 +7360,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28c01596192c39740bdedca6989fcdb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _countApples: {fileID: 1294736434}
+  _countScore: {fileID: 785482270}
+  _disks: {fileID: 105864649}
 --- !u!1001 &58895127806463567
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -6,8 +6,8 @@ public class SessionWindow : MonoBehaviour
     [SerializeField] private  Image[] _disks;
     [SerializeField] private  Image[] _knifes;
 
-    [Space] [SerializeField] private Text _countScore;
-    [Space] [SerializeField] private Text _countApples;
+    [SerializeField] private Text _countScore;
+    [SerializeField] private Text _countApples;
 
     private int _currentDisk;
     private int _countStuckKnife;
@@ -43,13 +43,6 @@ public class SessionWindow : MonoBehaviour
     public void UpdateApple()
     {
         _countApples.text = DataGame.GetCountApples().ToString();
-    }
-
-    public void ResetScore()
-    {
-        DataGame.ResetScore();
-        
-        _countScore.text = DataGame.GetScore().ToString();
     }
 
     public void AddScore(int value)
