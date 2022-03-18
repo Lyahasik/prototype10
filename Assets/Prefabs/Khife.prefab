@@ -144,6 +144,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sessionManager: {fileID: 0}
   _powerRotationDrop: 500
+  _delay: 0.3
 --- !u!114 &58895127741811635
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,7 +10,8 @@ public class KnifeThrowing : MonoBehaviour
 {
     [SerializeField] private SessionManager _sessionManager;
     [SerializeField] private float _powerRotationDrop = 800f;
-    
+
+    [SerializeField] private float _delay = 0.1f;
     private float _speed;
     private float _speedDrop;
     
@@ -20,6 +21,7 @@ public class KnifeThrowing : MonoBehaviour
     private Collider _collider;
 
     private Vector3 _startPosition;
+    private float _nextThrow;
     private bool _isThrow;
     
     void Start()
@@ -38,9 +40,12 @@ public class KnifeThrowing : MonoBehaviour
 
     public void Throw()
     {
-        if (!_isThrow)
+        if (!_isThrow
+            && _nextThrow < Time.time)
         {
             _isThrow = true;
+            _nextThrow = Time.time + _delay;
+            
             _rigidbody.AddForce(Vector3.up * _speed);
         }
     }
