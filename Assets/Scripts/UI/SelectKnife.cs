@@ -22,16 +22,24 @@ public class SelectKnife : MonoBehaviour, IPointerDownHandler
         _gameManager = _managersController.GetComponent<GameManager>();
         _homeManager = _managersController.GetComponent<HomeManager>();
         
+        CheckOpen();
+    }
+
+    private void CheckOpen()
+    {
         _isOpen = _gameManager.CheckOpenKnife(_textureKnife);
 
         if (!_isOpen)
         {
             GetComponent<Image>().color = Color.black;
+            _imageBorder.enabled = false;
         }
     }
 
     private void OnGUI()
     {
+        CheckOpen();
+        
         if (_isOpen)
         {
             if (_textureKnife == DataGame.GetCurrentTextureKnife())

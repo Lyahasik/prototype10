@@ -37,6 +37,8 @@ public class HomeManager : MonoBehaviour
     public void ResetProgress()
     {
         PlayerPrefs.DeleteAll();
+        DataGame.ResetIdMaxOpenKnife();
+        
         _gameManager.LoadData();
     }
 

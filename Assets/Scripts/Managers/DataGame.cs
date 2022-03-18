@@ -37,6 +37,11 @@ public static class DataGame
         return _idMaxOpenKnife;
     }
 
+    static public void ResetIdMaxOpenKnife()
+    {
+        _idMaxOpenKnife = 0;
+    }
+
     static public void Scoring()
     {
         if (_recordNumber < _countScore)
