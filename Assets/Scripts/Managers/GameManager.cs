@@ -17,6 +17,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        LoadData();
+    }
+
+    public void LoadData()
+    {
         _sessionManager = GetComponent<SessionManager>();
             
         _idCurrentTexture = PlayerPrefs.GetInt("idCurrentTexture");

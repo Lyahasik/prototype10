@@ -34,6 +34,12 @@ public class HomeManager : MonoBehaviour
         SceneManager.LoadScene("Level1");
     }
 
+    public void ResetProgress()
+    {
+        PlayerPrefs.DeleteAll();
+        _gameManager.LoadData();
+    }
+
     public void OpenKnifesMenu()
     {
         _knifesMenu.SetActive(true);

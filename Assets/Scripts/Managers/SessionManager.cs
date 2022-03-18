@@ -200,6 +200,7 @@ public class SessionManager : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         
+        DataGame.ResetDisk();
         SceneManager.LoadScene("MainScene");
     }
 
