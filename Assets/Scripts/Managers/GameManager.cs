@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
         _recordLevel = PlayerPrefs.GetInt("recordLevel");
         _countApples = PlayerPrefs.GetInt("countApples");
         
+        DataGame.SetIdMaxOpenKnife(PlayerPrefs.GetInt("idMaxOpenKnife"));
         DataGame.SetCurrentTextureKnife(_texturesKnife[_idCurrentTexture]);
         DataGame.SetRecordNumber(_recordNumber);
         DataGame.SetRecordLevel(_recordLevel);
@@ -51,5 +52,12 @@ public class GameManager : MonoBehaviour
         
         PlayerPrefs.SetInt("idCurrentTexture", _idCurrentTexture);
         DataGame.SetCurrentTextureKnife(_texturesKnife[_idCurrentTexture]);
+    }
+
+    public bool CheckOpenKnife(Texture texture)
+    {
+        int idTexture = _texturesKnife.IndexOf(texture);
+
+        return idTexture <= DataGame.GetIdMaxOpenKnife();
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 public static class DataGame
 {
     static private Texture _currentTexturesKnife;
+    static private int _idMaxOpenKnife;
 
     static private int _recordNumber;
     static private int _recordLevel;
@@ -19,6 +20,21 @@ public static class DataGame
     static public Texture GetCurrentTextureKnife()
     {
         return _currentTexturesKnife;
+    }
+
+    static public void SetIdMaxOpenKnife(int id)
+    {
+        if (id > _idMaxOpenKnife)
+        {
+            _idMaxOpenKnife = id;
+            
+            PlayerPrefs.SetInt("idMaxOpenKnife", _idMaxOpenKnife);
+        }
+    }
+
+    static public int GetIdMaxOpenKnife()
+    {
+        return _idMaxOpenKnife;
     }
 
     static public void Scoring()

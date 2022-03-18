@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Scene = UnityEditor.SearchService.Scene;
 
 public class SessionManager : MonoBehaviour
 {
@@ -62,6 +63,8 @@ public class SessionManager : MonoBehaviour
         if (_currentIdDisk == _disks.Length)
         {
             PlayerPrefs.SetInt("countApples", DataGame.GetCountApples());
+
+            DataGame.SetIdMaxOpenKnife(SceneManager.GetActiveScene().buildIndex);
 
             SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % SceneManager.sceneCountInBuildSettings);
             return;
