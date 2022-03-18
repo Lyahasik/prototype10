@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Scene = UnityEditor.SearchService.Scene;
 
 public class SessionManager : MonoBehaviour
 {
@@ -39,6 +38,8 @@ public class SessionManager : MonoBehaviour
 
     public void StartSession()
     {
+        Vibration.Init();
+        
         _uiManager = GetComponent<UIManager>();
             
         _knifeThrowing = _mainKnife.GetComponent<KnifeThrowing>();
@@ -196,6 +197,8 @@ public class SessionManager : MonoBehaviour
         Time.timeScale = 1.0f;
 
         DataGame.ResetDisk();
+        
+        Vibration.Cancel();
         SceneManager.LoadScene("Level1");
     }
 
@@ -204,6 +207,8 @@ public class SessionManager : MonoBehaviour
         Time.timeScale = 1.0f;
         
         DataGame.ResetDisk();
+        
+        Vibration.Cancel();
         SceneManager.LoadScene("MainScene");
     }
 

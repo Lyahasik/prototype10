@@ -59,6 +59,8 @@ public class DiskLife : MonoBehaviour
 
     public bool HitKnife(Vector3 position)
     {
+        Vibration.Vibrate(50);
+        
         _sessionManager.GetUIManager().GetSessionWindow().AddScore(1);
         
         GameObject knife = _sessionManager.GetKnife();
@@ -96,6 +98,8 @@ public class DiskLife : MonoBehaviour
 
     private void DiskDestruct()
     {
+        Vibration.Vibrate(300);
+            
         foreach (ObjectImpulse objectImpulse in _listBaseKnifesImpulse)
         {
             objectImpulse.Impulse();

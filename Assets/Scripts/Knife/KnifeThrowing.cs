@@ -63,6 +63,8 @@ public class KnifeThrowing : MonoBehaviour
     {
         StartCoroutine(_sessionManager.GameOver());
         _hitKnifeAudio.Play();
+        
+        Vibration.Vibrate(500);
 
         _collider.isTrigger = true;
         _rigidbody.velocity = Vector3.zero;
