@@ -64,9 +64,10 @@ public class SessionManager : MonoBehaviour
         if (_currentIdDisk == _disks.Length)
         {
             PlayerPrefs.SetInt("countApples", DataGame.GetCountApples());
+            _uiManager.GetGameOverWindow().SaveScore();
 
             DataGame.SetIdMaxOpenKnife(SceneManager.GetActiveScene().buildIndex);
-
+            
             SceneManager.LoadScene((SceneManager.GetActiveScene().buildIndex + 1) % SceneManager.sceneCountInBuildSettings);
             return;
         }
